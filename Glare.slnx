@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="Glare.vcxproj" Id="0ca44705-a497-49af-adff-8b4796b84907" />
+</Solution>
