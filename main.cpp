@@ -13,7 +13,7 @@ const char* fragmentShaderSource = "#version 330 core\n"
 "out vec4 FragColor;\n"
 "void main()\n"
 "{\n"
-"    FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+"    FragColor = vec4(1.0f, 0.5f, 0.02f, 1.0f);\n"
 "}\0";
 
 int main() 
@@ -25,10 +25,12 @@ int main()
 	// Use the core profile for modern OpenGL features
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+	// Define the vertices for a triangle
 	GLfloat vertices[] = {
-		-0.5f, -0.5f, float(sqrt(3)) /3, 0.0f, // left  
-		 0.5f, -0.5f, float(sqrt(3)) /3, 0.0f, // right 
-		 0.0f,  0.5f, float(sqrt(3)) /2, 0.0f  // top   
+		-0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, // Lower left vertex
+		 0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, // Lower right vertex
+		 0.0f,  0.5f * float(sqrt(3)) * 2 / 3, 0.0f  // Upper vertex
+
 	};
 
 
@@ -91,14 +93,14 @@ int main()
 
 
 	// Set up vertex data and buffers and configure vertex attributes
-	glClearColor(0.7f, 0.13f, 0.17f, 1.0f);
+	glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glfwSwapBuffers(window);
 
 	// Main Render loop
 	while (!glfwWindowShouldClose(window))
 	{
-		glClearColor(0.7f, 0.13f, 0.17f, 1.0f);
+		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		glUseProgram(shaderProgram);
 		glBindVertexArray(VAO);
