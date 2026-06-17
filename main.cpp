@@ -31,6 +31,16 @@ int main()
 		 0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, // Lower right vertex
 		 0.0f,  0.5f * float(sqrt(3)) * 2 / 3, 0.0f  // Upper vertex
 
+
+		- 0.5f / 2, -0.5f * float(sqrt(3)) / 6, 0.0f, // Lower left vertex
+		 0.5f / 2, -0.5f * float(sqrt(3)) / 6, 0.0f, // Lower right vertex
+		 0.0f,  0.5f * float(sqrt(3))  / 3, 0.0f  // Upper vertex
+	};
+
+	GLuint indices[] = {
+		0, 3, 5, // First triangle
+		3, 2, 4, // Second triangle
+		5, 4, 1	 // Third triangle
 	};
 
 
@@ -47,6 +57,7 @@ int main()
 
 	gladLoadGL();
 
+	// Set the viewport to cover the new window
 	glViewport(0, 0, 800, 800);
 
 	// Build and compile our shader program
@@ -71,25 +82,30 @@ int main()
 	glDeleteShader(fragmentShader);
 
 
-	GLuint VAO, VBO;
-
+	GLuint VAO, VBO, EBO;
+	
+	// Generate and bind the Vertex Array Object (VAO) and Vertex Buffer Object (VBO)
 	glGenVertexArrays(1, &VAO);
-	glBindVertexArray(VAO);
-
 	glGenBuffers(1, &VBO);
+	glGenBuffers(1, &EBO);
+
+	// Bind the VAO and VBO, and set the vertex data
+	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 
+	// Upload the vertex data to the GPU
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
+	// Define the vertex attribute pointers
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
+	// Unbind the VBO, VAO, and EBO to prevent accidental modification
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
-
-
-
-
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 
 	// Set up vertex data and buffers and configure vertex attributes
@@ -104,7 +120,8 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT);
 		glUseProgram(shaderProgram);
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		//glDrawArrays(GL_TRIANGLES, 0, 6);
+		//glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
 		glfwSwapBuffers(window);
 
 		glfwPollEvents();
@@ -112,6 +129,7 @@ int main()
 
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
+	glDeleteBuffers(1, &EBO);
 	glDeleteProgram(shaderProgram);
 
 	glfwDestroyWindow(window);
