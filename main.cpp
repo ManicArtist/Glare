@@ -28,13 +28,13 @@ int main()
 	// Define the vertices for a triangle
 	GLfloat vertices[] = {
 		-0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, // Lower left vertex
-		 0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, // Lower right vertex
-		 0.0f,  0.5f * float(sqrt(3)) * 2 / 3, 0.0f  // Upper vertex
+		0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, // Lower right vertex
+		0.0f, 0.5f * float(sqrt(3)) * 2 / 3, 0.0f,  // Upper vertex
 
 
-		- 0.5f / 2, -0.5f * float(sqrt(3)) / 6, 0.0f, // Lower left vertex
-		 0.5f / 2, -0.5f * float(sqrt(3)) / 6, 0.0f, // Lower right vertex
-		 0.0f,  0.5f * float(sqrt(3))  / 3, 0.0f  // Upper vertex
+		- 0.5f / 2, 0.5f * float(sqrt(3)) / 6, 0.0f, // Lower left vertex
+		0.5f / 2, 0.5f * float(sqrt(3)) / 6, 0.0f, // Lower right vertex
+		0.0f,  -0.5f * float(sqrt(3)) / 3, 0.0f  // Upper vertex
 	};
 
 	GLuint indices[] = {
@@ -121,7 +121,7 @@ int main()
 		glUseProgram(shaderProgram);
 		glBindVertexArray(VAO);
 		//glDrawArrays(GL_TRIANGLES, 0, 6);
-		//glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
 		glfwSwapBuffers(window);
 
 		glfwPollEvents();
